@@ -1,207 +1,480 @@
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My first leaflet</title>
-<!-- link css leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-crossorigin=""/>
-<!-- link js leaflet -->
-<!-- Make sure you put this AFTER Leaflet's CSS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-crossorigin=""></script>
-
- <style>
-    body {    
-    padding: 0;
-    margin: 0;  
-    }   
-    html,   
-    body,    
-    #map {   
-    height: 100%;   
-    width: 100%;    
-    }
-    
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWU_Station</title>
+    <!-- link css leaflet -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <!-- link js leaflet -->
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <!-- link css -->
+    <link rel="stylesheet" href="st.css">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+       
 </head>
+
 <body>
-    <div id='map' style = 'width: 100%; height: 100%'></div>
-    <script>
-    // create map
-       var map = L.map('map').setView([13.726663778863056, 100.50993626681172], 20) 
-    //    basedmap2
-       var OSM = L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors'
-          }).addTo(map);     
-    //  basedmap2
-     var stadia = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
-        minZoom: 0,
-        maxZoom: 20,
-        attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        ext: 'png'
-        }).addTo(map);
-        // basedmap3
-        var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-	        maxZoom: 17,
-	        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'    
-        }).addTo(map);
-        // create Layer
-        var baseLayers ={
-            'OSM' : OSM,
-            'stadia' :stadia,
-            'OpenTopoMap':  OpenTopoMap        
-        }
-        L.control.layers(baseLayers).addTo(map);
 
-        //การเพิ่มข้อข้อมูลลงบนแผนที่
-        // //1 location
-        // var iconsiam= L.marker([13.726663778863056, 100.50993626681172],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: 'iconsiam', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-        // //2 location
-        // var central_rama_2= L.marker([13.664094863562982, 100.43771416290586],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: 'central rama 2', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-        // //3 location
-        // var ancient_city= L.marker([13.53877539687356, 100.622600821405],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: 'ancient city', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-        // //4 location
-        // var central_westgate= L.marker([13.877116933778309, 100.41137312448586],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: 'central westgate', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-        //  //5 location
-        //  var Siam_Amazing_Park= L.marker([13.805327188851697, 100.69180693980434],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: 'Siam Amazing Park', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-        // //6 location
-        // var Terminal_21_Rama3= L.marker([13.688968252706015, 100.50541135331798],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: 'Terminal 21 Rama3', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-        // //7 location
-        // var Lumpini_Park_Thailand= L.marker([13.731683430313081, 100.54161256496216],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: 'Lumpini Park Thailand', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-        // //8 location
-        // var Mrt_rama_9_station= L.marker([13.75788826013705, 100.56514891395179],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: 'Mrt rama 9 station', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-        // //9 location
-        // var Suan_Luang_Rama_IX= L.marker([13.679720010748024, 100.66143920715564],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: 'Suan Luang Rama IX', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-        // //10 location
-        // var Mrt_Tao_Poon_station= L.marker([13.806112158291132, 100.53077172448452],
-        //     {
-        //     draggable: false, // ขยับจุด
-        //     title: ' Tao Poon station', // Add a title
-        //     opacity: 1.5, // Adjust the opacity
-        //     }
-        // ).addTo(map);
-    //    การเพิ่มวงกลม
+<div class="box">
+    <div class="left" > 
+        <div class="ad"><h1 class="SWU" >SWU</h1><p><h5 class="station">Station</h5></p> </div>
+        
+        <center><ul class = 'line'></ul> </center>
+     
+       
+        <!-- ตรงข้ามมศว -->
+        <ul class = 'text'> 
+         <div class="handle"></div>
 
-        //  var circle = L.circleMarker(
-        //     [13.726663778863056, 100.50993626681172],
-        //     {title :'iconsiam',
-        //     radius: 50,
-        //     color: "black",
-        //     fillColor: "blue"
-        //     }
-        //  ).addTo(map);
+  
 
+    <div class= 'boxone'>       
+        <div class="there"><b>ป้ายตรงข้าม มศว</b> </div>
+
+        <button class = 'accordion' onclick="showMapa()" id="f" >ARLมักกะสัน>อู่หมอชิต<b>(สาย 136)</b></button> 
+   
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">ARL มักกะสัน,8บาท</a></li>
+            <li><a href="#" class="btn">ใต้ทางด่วนอโศก (ขาออก),8บาท</a></li>
+            <li><a href="#" class="btn">อาคารอิตัลไทย,15บาท</a></li>
+            <li><a href="#" class="btn">ฟอร์จูนทาวน์,8บาท</a></li>
+            <li><a href="#" class="btn">สถานทูตจีน,8บาท</a></li>
+            <li><a href="#" class="btn">เอสพลานาด รัชดาภิเษก,8บาท</a></li>
+            <li><a href="#" class="btn">บิ๊กซีรัชดาภิเษก,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามโรงเรียนเตรียมอุดมศึกษาพัฒนาการ รัชดา,8บาท</a></li>
+            <li><a href="#" class="btn">โรงแรมดิเอมเมอรัลด์,8บาท</a></li>
+            <li><a href="#" class="btn">MRT ห้วยขวาง (ทางออก 3),8บาท</a></li>
+            <li><a href="#" class="btn">MRTห้วยขวาง (ทางออก 4),8บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนเตรียมอุดมศึกษาน้อมเกล้า,8บาท</a></li>
+            <li><a href="#" class="btn">อาคารกลาสเฮ้าส์ รัชดา,8บาท</a></li>
+            <li><a href="#" class="btn">สน.สุทธิสาร,8บาท</a></li>
+            <li><a href="#" class="btn">บุญถาวร รัชดาภิเษก (ขาออก),8บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนปัญจทรัพย์,8บาท</a></li>
+            <li><a href="#" class="btn">ศาลแขวงพระนครเหนือ,8บาท</a></li>
+            <li><a href="#" class="btn">ศาลอาญา,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม ม.ราชภัฏจันทรเกษม,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยเสือใหญ่,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยรัชดาภิเษก 42,8บาท</a></li>
+            <li><a href="#" class="btn">สน.พหลโยธิน,8บาท</a></li>
+            <li><a href="#" class="btn">ตึกช้าง,8บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนสตรีวรนาถบางเขน,8บาท</a></li>
+            <li><a href="#" class="btn">กองบังคับการปราบปราม,8บาท</a></li>
+            <li><a href="#" class="btn">โลตัสลาดพร้าว,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามเซ็นทรัลลาดพร้าว,8บาท</a></li>
+            <li><a href="#" class="btn">ธนาคารทหารไทยธนชาติ สำนักงานใหญ่,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสวนจตุจักร (จุดที่ 1),8บาท</a></li>
+            <li><a href="#" class="btn">ศาลเยาวชนและครอบครัวกลาง,8บาท</a></li>
+            <li><a href="#" class="btn">[จุดส่งผู้โดยสาร] สถานีกลางกรุงเทพอภิวัฒน์,8บาท</a></li>
+            <li><a href="#" class="btn">ด้านหลังสถานีกลางกรุงเทพอภิวัฒน์,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามตลาดสัตว์เลี้ยง อตก.,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามตลาด อตก.,8บาท</a></li>
+            <li><a href="#" class="btn">ตึกแดง จตุจักร,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามตลาด อตก.,8บาท</a></li>
+            <li><a href="#" class="btn">ตึกแดง จตุจักร,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามเจเจมอลล์,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสวนสมเด็จพระนางเจ้าสิริกิ,8บาท</a></li>
+            <li><a href="#" class="btn">อู่หมอชิต 2,8บาท</a></li>
+         </ul>
+        </div>
+       
+        <button class = 'accordion'  onclick="showMapttt()" id="f">ARLมักกะสัน>อู่รังสิต<b>(สาย 185)</b></button> 
+   
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">ARL มักกะสัน,8บาท</a></li>
+            <li><a href="#" class="btn">ใต้ทางด่วนอโศก (ขาออก),8บาท</a></li>
+            <li><a href="#" class="btn">ฟอร์จูนทาวน์,8บาท</a></li>
+            <li><a href="#" class="btn">สถานทูตจีน,8บาท</a></li>
+            <li><a href="#" class="btn">เอสพลานาด รัชดาภิเษก,8บาท</a></li>
+            <li><a href="#" class="btn">บิ๊กซีรัชดาภิเษก,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามโรงเรียนเตรียมอุดมศึกษาพัตนาการ รัชดา,8บาท</a></li>
+            <li><a href="#" class="btn">โรงแรมดิเอมเมอรัลด์,8บาท</a></li>
+            <li><a href="#" class="btn">MRT ห้วยขวาง (ทางออก 3),8บาท</a></li>
+            <li><a href="#" class="btn">MRTห้วยขวาง (ทางออก 4),8บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนเตรียมอุดมศึกษาน้อมเกล้า,8บาท</a></li>
+            <li><a href="#" class="btn">อาคารกลาสเฮ้าส์ รัชดา,8บาท</a></li>
+            <li><a href="#" class="btn">สน.สุทธิสาร,8บาท</a></li>
+            <li><a href="#" class="btn">บุญถาวร รัชดาภิเษก (ขาออก),8บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนปัญจทรัพย์,8บาท</a></li>
+            <li><a href="#" class="btn">ศาลแขวงพระนครเหนือ,8บาท</a></li>
+            <li><a href="#" class="btn">ศาลอาญา,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม ม.ราชภัฏจันทรเกษม,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยเสือใหญ่,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยรัชดาภิเษก 42,8บาท</a></li>
+            <li><a href="#" class="btn">สน.พหลโยธิน,8บาท</a></li>
+            <li><a href="#" class="btn">BTS รัชโยธิน (ทางออก 3),8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามตลาดบางเขน,8บาท</a></li>
+            <li><a href="#" class="btn">กรมพัฒนาที่ดิน,8บาท</a></li>
+            <li><a href="#" class="btn">ม.เกษตรศาสตร์ (ประตูพหลโยธิน),8บาท</a></li>
+            <li><a href="#" class="btn">กรมส่งเสริมการเกษตร,8บาท</a></li>
+            <li><a href="#" class="btn">สำนักงานคณะกรรมการวิจัยแห่งชาติ,8บาท</a></li>
+            <li><a href="#" class="btn">กรมป่าไม้,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามโรงเรียนสารวิทยา,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม ม.ศรีปทุม,8บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนบางบัว,8บาท</a></li>
+            <li><a href="#" class="btn">หมู่บ้านถาวรวิลล่าบางบัว 1,8บาท</a></li>
+            <li><a href="#" class="btn">บ้านบางเขน,8บาท</a></li>
+            <li><a href="#" class="btn">ซอยพหลโยธิน 49/2,8บาท</a></li>
+            <li><a href="#" class="btn">ก่อนอู่บางเขน,8บาท</a></li>
+            <li><a href="#" class="btn">วัดพระศรีมหาธาตุ,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามโลตัสหลักสี่,8บาท</a></li>
+            <li><a href="#" class="btn">ซอยพหลโยธิน 61,8บาท</a></li>
+            <li><a href="#" class="btn">ซอยพหลโยธิน 65,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยสายหยุด,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม รพ.เซ็นทรัลเยนเนอรัล,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามบิ๊กซีสะพานใหม่,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามตลาดบางเขน,8บาท</a></li>
+            <li><a href="#" class="btn">ตลาดไทยณรงค์,8บาท</a></li>
+            <li><a href="#" class="btn">ตลาดยิ่งเจริญ,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยพหลโยธิน 54/1,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามช่องทางท่าดินแดง 2,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม รพ.ภูมิพลอดุลยเดช,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามหอประชุมกองทัพอากาศ,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามโรงเรียนฤทธิยะวรรณาลัย,8บาท</a></li>
+            <li><a href="#" class="btn">พิพิธภัณฑ์กองทัพอากาศ,8บาท</a></li>
+            <li><a href="#" class="btn">กองบัญชาการกองทัพอากาศ,8บาท</a></li>
+            <li><a href="#" class="btn">BTS แยก คปอ. (ทางออก 3),8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามพหลโยธิน กม.25,8บาท</a></li>
+            <li><a href="#" class="btn">หมู่บ้านเจษฎา 1,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามพหลโยธิน กม.26,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามหมู่บ้านแอนเน็กซ์,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามหมู่บ้านการ์เด้นโฮม,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม รพ.บีแคร์,8บาท</a></li> 
+            <li><a href="#" class="btn">ตรงข้ามพหลโยธิน กม.27,8บาท</a></li>
+            <li><a href="#" class="btn">ก่อนแยกลำลูกกา,8บาท</a></li>
+            <li><a href="#" class="btn">บิ๊กซีรังสิต 2,8บาท</a></li>
+            <li><a href="#" class="btn">ตลาดสี่มุมเมือง,8บาท</a></li>
+            <li><a href="#" class="btn">วัดประยูรธรรมาราม,8บาท</a></li>
+            <li><a href="#" class="btn">เมืองเอก,8บาท</a></li>
+            <li><a href="#" class="btn">แม็คโครรังสิต,8บาท</a></li>
+            <li><a href="#" class="btn">วัดประยูรธรรมาราม,8บาท</a></li>
+            <li><a href="#" class="btn">เมืองเอก,8บาท</a></li>
+            <li><a href="#" class="btn">แม็คโครรังสิต,8บาท</a></li>
+            <li><a href="#" class="btn">ตลาดรังสิต,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามหมู่บ้านรัตนโกสินทร์ 200 ปี,8บาท</a></li>
+            <li><a href="#" class="btn">อู่รังสิต,8บาท</a></li>
+         </ul>
+        </div>  
       
+        <button class = 'accordion' onclick="showMap()" id="f" >ARLราม>ARLหัวหมาก<b>(สาย 3-53)</b></button> 
+   
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">โรงแรมแลงคาสเตอร์,15บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามโรงแรมอวานี เอเทรียม,15บาท</a></li>
+            <li><a href="#" class="btn">อาคารอิตัลไทย,15บาท</a></li>
+            <li><a href="#" class="btn">อาร์ซีเอ,15บาท</a></li>
+            <li><a href="#" class="btn">ซอยศูนย์วิจัย,15บาท</a></li>
+            <li><a href="#" class="btn">สถานีคลองตัน,15บาท</a></li>
+            <li><a href="#" class="btn">หลังแยกเอกมัยเหนือ,15บาท</a></li>
+            <li><a href="#" class="btn">รพ.เพชรเวช,15บาท</a></li>
+            <li><a href="#" class="btn">ARL รามคำแหง,20บาท</a></li>
+            <li><a href="#" class="btn">กฟน.บางกะปิ,20บาท</a></li>
+            <li><a href="#" class="btn">โรงแรมอัลมีรอซ,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยรามคำแหง 7,20บาท</a></li>
+            <li><a href="#" class="btn">เดอะมอลล์รามคำแหง,20บาท</a></li>
+            <li><a href="#" class="btn">บิ๊กซีหัวหมาก,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามหมู่บ้านรามทาวน์เฮ้าส์,20บาท</a></li>
+            <li><a href="#" class="btn">ด้านหลัง ม.รามคำแหง,20บาท</a></li>
+            <li><a href="#" class="btn">ด้านหลังราชมังคลากีฬาสถาน,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยรามคำแหง 24 แยก 22,20บาท</a></li>
+            <li><a href="#" class="btn">ด้านหลังการกีฬาแห่งประเทศไทย,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามหมู่บ้านศีขริน,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม ม.อัสสัมชัญ หัวหมาก,20บาท</a></li>
+            <li><a href="#" class="btn">พนาสินเพลส,20บาท</a></li>
+            <li><a href="#" class="btn">ด้านหลังโอสถสภา,20บาท</a></li>
+            <li><a href="#" class="btn">หมู่บ้านเดชา,20บาท</a></li>
+            <li><a href="#" class="btn">หมู่บ้านพลัสซิตี้พาร์ค หัวหมาก,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยหัวหมาก 20,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามคอนโดยู หัวหมากสเตชั่น,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามยูดีไลท์ หัวหมากสเตชั่น,20บาท</a></li>
+            <li><a href="#" class="btn">สุขเกษมเพลส,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยศรีนครินทร์ 7,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม รพ.สมิติเวช ศรีนครินทร์,20บาท</a></li>
+            <li><a href="#" class="btn">ARL หัวหมาก,20บาท</a></li>
+         </ul>
+        </div> 
 
-        //แสดงข้อมูลหลายจุด
+        <button class = 'accordion' onclick="showMapt()" id="f" >สวนสันติภาพ>ซอยจรัญสนิทวงศ์ 96/2 <br><b>(สาย 3-55)</b> </button> 
+   
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">ARL มักกะสัน,15บาท</a></li>
+            <li><a href="#" class="btn">ใต้ทางด่วนอโศก (ขาออก),15บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามตลาดอยู่เจริญ,15บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามตลาดขวัญพัฒนา,15บาท</a></li>
+            <li><a href="#" class="btn">โบสถ์แม่พระฟาติมา,15บาท</a></li>
+            <li><a href="#" class="btn">แฟลตดินแดง (อาคาร 7),15บาท</a></li>
+            <li><a href="#" class="btn">แฟลตดินแดง (อาคาร 5),15บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามโรงเรียนพิบูลประชาสรรค์,15บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสำนักงาน ป.ป.ส.,20บาท</a></li>
+            <li><a href="#" class="btn">สวนสันติภาพ,20บาท</a></li>
+            <li><a href="#" class="btn">อนุสาวรีย์ชัยสมรภูมิ (เกาะราชวิถี),20บาท</a></li>
+            <li><a href="#" class="btn">รพ.เด็ก,20บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนสอนคนตาบอดกรุงเทพ,20บาท</a></li>
+            <li><a href="#" class="btn">สถาบันประสาทวิทยา,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยราชวิถี 22,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยราชวิถี 30,20บาท</a></li>
+            <li><a href="#" class="btn">ก่อนแยกราชวิถี,20บาท</a></li>
+            <li><a href="#" class="btn">พระที่นั่งวิมานเมฆ,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยสวนอ้อย,20บาท</a></li>
+            <li><a href="#" class="btn">ปากทางออกถนนอำนวยสงคราม,20บาท</a></li>
+            <li><a href="#" class="btn">แม็คโครสามเสน,20บาท</a></li>
+            <li><a href="#" class="btn">รัฐสภา,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามกองพันทหารม้าที่ 4,20บาท</a></li>
+            <li><a href="#" class="btn">แยกเกียกกาย (ขาออก),20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามวัดประดู่ธรรมาธิปัตย์,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสถานีดับเพลิงบางโพ,20บาท</a></li>
+            <li><a href="#" class="btn">หลังแยกบางโพ,20บาท</a></li>
+            <li><a href="#" class="btn">หลังแยกบางโพ,20บาท</a></li>
+            <li><a href="#" class="btn">วัดอนัมนิกายาราม,20บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนโยธินบูรณะ,20บาท</a></li>
+            <li><a href="#" class="btn">วัดสร้อยทอง,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยจรัญสนิทวงศ์ 96/2,20บาท</a></li>
+         </ul>
+        </div>
 
-        var lo = [
-            ["iconsiam", 13.726663778863056, 100.50993626681172],
-            ["central rama 2", 13.664094863562982, 100.43771416290586],
-            ["ancient city", 13.53877539687356, 100.622600821405],
-            ["central westgate", 13.877116933778309, 100.41137312448586],
-            ["Siam Amazing Park", 13.805327188851697, 100.69180693980434],
-            ["Terminal 21 Rama3", 13.688968252706015, 100.50541135331798],
-            ["Lumpini Park Thailand", 13.731683430313081, 100.54161256496216],
-            ["Mrt rama 9 stati", 13.75788826013705, 100.56514891395179],
-            ["Suan Luang Rama IX", 13.679720010748024, 100.66143920715564],
-            ["Tao Poon station", 13.806112158291132, 100.53077172448452]
-        ];
 
+       
+        
+        <button class = 'accordion' onclick="showMaptt()"  id="f">เเยกประตูน้ำ>อนุสาวรีย์ชัยสมรภูมิ <br><b>(สาย 3-8)</b></button> 
+   
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">โรงเรียนเซนต์ดอมินิก 15บาท</a></li>
+            <li><a href="#" class="btn">โรงแรมรอยัลปริ๊นซ์โฮเต็ล 15บาท</a></li>
+            <li><a href="#" class="btn">แยกมิตรสัมพันธ์(ถนนเพชรบุรีขาเข้า) 15บาท</a></li>
+            <li><a href="#" class="btn">นิคมมักกะสัน(ถนนเพชรบุรีขาเข้า),15บาท</a></li>
+            <li><a href="#" class="btn">วัดมักกะสัน,15บาท</a></li>
+            <li><a href="#" class="btn">เมโทร,15บาท</a></li>
+            <li><a href="#" class="btn">แยกประตูน้ำ,15บาท</a></li>
+            <li><a href="#" class="btn">อินทราสแควร์ประตูน้ำ,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยรางน้ำ,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามวัดตะพาน,20บาท</a></li>
+            <li><a href="#" class="btn">สวนสันติภาพ,20บาท</a></li>
+            <li><a href="#" class="btn">อนุสาวรีย์ชัยสมรภูมิ (เกาะพหลโยธิน),20บาท</a></li>
+
+         </ul>
+        </div> 
+    </div>
+  
+
+
+    <!-- ฝั่งมศว -->
+    <div class="two">
+    <div class="boxtwo">
+        <div class="here"><b>ป้ายฝั่ง มศว</b> </div>  
+
+            
+        <button class = 'accordion' onclick="showMapttp()" id="g" >ตรงข้ามสวนเบญจกิติ>ตลาดคลองเตย (ฝั่งรัชดาภิเษก)>อู่คลองเตย<b>(สาย 136)</b></button> 
+   
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">จีเอ็มเอ็ม แกรมมี่ เพลส,8บาท</a></li>
+            <li><a href="#" class="btn">อาคารชิโน-ไทย,8บาท</a></li>
+            <li><a href="#" class="btn">ซอยสุขุมวิท 16,8บาท</a></li>
+            <li><a href="#" class="btn">อาคารโอเชียนทาวเวอร์ 1,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสวนเบญจกิติ,15บาท<a></li>
+            <li><a href="#" class="btn">ตรงข้ามศูนย์การประชุมแห่งชาติสิริกิติ์,8บาท</a></li>
+            <li><a href="#" class="btn">เอฟวายไอ เซ็นเตอร์,8บาท</a></li>
+            <li><a href="#" class="btn">ตลาดคลองเตย (ฝั่งรัชดาภิเษก),8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสนามกีฬาการท่าเรือ,8บาท</a></li>
+            <li><a href="#" class="btn">ซอยคั่วพริก,8บาท</a></li>
+            <li><a href="#" class="btn">อู่คลองเตย,8บาท</a></li>
+
+         </ul>
+        </div> 
+
+        <button class = 'accordion' onclick="showMapttpp()" id="g" >ตรงข้ามสวนเบญจกิติ>อู่คลองเตย<b>(สาย 185)</b></button> 
+   
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">จีเอ็มเอ็ม แกรมมี่ เพลส,8บาท</a></li>
+            <li><a href="#" class="btn">อาคารชิโน-ไทย,8บาท</a></li>
+            <li><a href="#" class="btn">ซอยสุขุมวิท 16,8บาท</a></li>
+            <li><a href="#" class="btn">อาคารโอเชียนทาวเวอร์ 1,8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสวนเบญจกิติ,15บาท<a></li>
+            <li><a href="#" class="btn">ตรงข้ามศูนย์การประชุมแห่งชาติสิริกิติ์,8บาท</a></li>
+            <li><a href="#" class="btn">เอฟวายไอ เซ็นเตอร์,8บาท</a></li>
+            <li><a href="#" class="btn">ตลาดคลองเตย (ฝั่งรัชดาภิเษก),8บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสนามกีฬาการท่าเรือ,8บาท</a></li>
+            <li><a href="#" class="btn">ซอยคั่วพริก,8บาท</a></li>
+            <li><a href="#" class="btn">อู่คลองเตย,8บาท</a></li>
+
+         </ul>
+        </div> 
+
+       
+        <button class = 'accordion' onclick="showMapttppt()" id="g">วัดหัวลำโพง>โรงเรียนเบญจมราชาลัย<br><b>(สาย 3-53)</b></button> 
+
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">จีเอ็มเอ็ม แกรมมี่ เพลส,15บาท</a></li>
+            <li><a href="#" class="btn">อาคารชิโน-ไทย,15บาท</a></li>
+            <li><a href="#" class="btn">อาคารไทม์สแควร์,15บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามโรงแรมไฮแอทรีเจนซี,15บาท</a></li>
+            <li><a href="#" class="btn">BTS นานา (ทางออก 2),15บาท</a></li>
+            <li><a href="#" class="btn">เพลินจิตเซ็นเตอร์,15บาท</a></li>
+            <li><a href="#" class="btn">BTS เพลินจิต (ทางออก 4),15บาท</a></li>
+            <li><a href="#" class="btn">อาคารต้นสน,15บาท</a></li>
+            <li><a href="#" class="btn">BTS ชิดลม (ทางออก 2),15บาท</a></li>
+            <li><a href="#" class="btn">เพนนินซูล่าพลาซ่า,15บาท</a></li>
+            <li><a href="#" class="btn">BTS ราชดำริ (ทางออก 2),15บาท</a></li>
+            <li><a href="#" class="btn">เอยู่เอ,20บาท</a></li>
+            <li><a href="#" class="btn">สวนลุมพินี (ฝั่งราชดำริ),20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม รพ.จุฬาลงกรณ์,20บาท</a></li>
+            <li><a href="#" class="btn">วัดหัวลำโพง,20บาท</a></li>
+            <li><a href="#" class="btn">ไอดีโอคิว สามย่าน,20บาท</a></li>
+            <li><a href="#" class="btn">คริสตจักรสะพานเหลือง,20บาท</a></li>
+            <li><a href="#" class="btn">ศาลแรงงานกลาง,20บาท</a></li>
+            <li><a href="#" class="btn">MRT หัวลำโพง (ทางออก 4),20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามวัดไตรมิตร,20บาท</a></li>
+            <li><a href="#" class="btn">รพ.เทียนฟ้ามูลนิธิ,20บาท</a></li>
+            <li><a href="#" class="btn">แยกเฉลิมบุรี,20บาทฒ</a></li>
+            <li><a href="#" class="btn">ตลาดเก่าเยาวราช,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามวัดตึก,20บาท</a></li>
+            <li><a href="#" class="btn">วงบูรพา,20บาท</a></li>
+            <li><a href="#" class="btn">สวนรมณินาถ,20บาท</a></li>
+            <li><a href="#" class="btn">สน.สำราญราษฎร์ (ฝั่งมหาไชย),20บาท</a></li>
+            <li><a href="#" class="btn">วัดราชนัดดาราม,20บาท</a></li>
+            <li><a href="#" class="btn">นิทรรศน์รัตนโกสินทร์,20บาท</a></li>
+            <li><a href="#" class="btn">ศาลาว่าการ กทม.,20บาท</a></li>
+            <li><a href="#" class="btn">เสาชิงช้า,20บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนเบญจมราชาลัย,20บาท</a></li>    
+         </ul>
+        </div> 
+
+        <button class = 'accordion' onclick="showMapttps()" id="g" > ตรงข้ามสวนเบญจกิติ>ท่าเรือคลองเตย<b><br>(สาย 3-55)</b></button> 
+   
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">จีเอ็มเอ็ม แกรมมี่ เพลส,15บาท</a></li>
+            <li><a href="#" class="btn">อาคารชิโน-ไทย,15บาท</a></li>
+            <li><a href="#" class="btn">ซอยสุขุมวิท 16,15บาท</a></li>
+            <li><a href="#" class="btn">อาคารโอเชียนทาวเวอร์ 1,15บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสวนเบญจกิติ,15บาท<a></li>
+            <li><a href="#" class="btn">ตรงข้ามศูนย์การประชุมแห่งชาติสิริกิติ์,15บาท</a></li>
+            <li><a href="#" class="btn">เอฟวายไอ เซ็นเตอร์,15บาท</a></li>
+            <li><a href="#" class="btn">ซอยไผ่สิงห์โต,15บาท</a></li>
+            <li><a href="#" class="btn">ซอยเจริญสุข,15บาท</a></li>
+            <li><a href="#" class="btn">โลตัสพระราม 4 (ฝั่งเกษมราษฎร์),15บาท</a></li>
+            <li><a href="#" class="btn">รพ.ท่าเรือ (ฝั่งเกษมราษฎร์),15บาท</a></li>
+            <li><a href="#" class="btn">กรมศุลกากร,15บาท</a></li>
+            <li><a href="#" class="btn">การท่าเรือแห่งประเทศไทย (ฝ่ายการช่าง),15บาท</a></li>
+            <li><a href="#" class="btn">ท่าเรือคลองเตย,15บาท</a></li>
+
+         </ul>
+        </div> 
+       
+      
         
     
-
-        //เปลี่ยน icon
-
-        var greenIcon = L.icon({ iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Bullet-red.png/640px-Bullet-red.png',
-            iconSize: [25, 50], // size of the icon
-            shadowSize: [50, 64], // size of the shadow
-            iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-            shadowAnchor: [4, 62], // the same for the shadow
-            popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
-        });
-
-        for (var i = 0; i < lo.length; i++) {
-           
-            marker = new L.marker([lo[i][1], lo[i][2]], {icon: greenIcon})
-            .bindPopup(lo[i][0])
-            .addTo(map);
-        }
-
-
-        //description/Legend
-
-        var legend = L.control({position: "bottomright"});
-            legend.onAdd = function(map) {
-            var div = L.DomUtil.create("div", "legend");
-            div.innerHTML =
-            '<p><b>สถานที่ท่องเที่ยว</b></p><hr>' +
-            'Created by Chakrawat Luengsuttiphun<br>' +
-            'ID:64103010276<br>'+
-            '<img src="https://unity.swu.ac.th/wp-content/uploads/2020/07/SWU_Logo_EN_Color.png" width = 20%>'+
-            '<br><img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Bullet-red.png/640px-Bullet-red.png" width = 10% >'+ '<h2>สถานที่';
-            return div;
-        };
-
-        legend.addTo(map);
-    </script>
+        <button class = 'accordion' onclick="showMapttpss()" id="g" > เซ็นทรัลบางนา>อู่ไทยสมายล์บัส รามคำแหง 2<b>(สาย 3-8)</b> </button> 
+   
+        <div class = 'panel' >
+         <ul class = 'threeeight' id = 'click' >
+            <li><a href="#" class="btn">จีเอ็มเอ็ม แกรมมี่ เพลส,15บาท</a></li>
+            <li><a href="#" class="btn">อาคารชิโน-ไทย,15บาท</a></li>
+            <li><a href="#" class="btn">ซอยคาวบอย,15บาท</a></li>
+            <li><a href="#" class="btn">โรงแรมจัสมินซิตี้,15บาท</a></li>
+            <li><a href="#" class="btn">ซอยสุขุมวิท 27,15บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามเอ็มสเฟียร์,15บาท</a></li>
+            <li><a href="#" class="btn">เอ็มควอเทียร์,15บาท</a></li>
+            <li><a href="#" class="btn">ซอยสุขุมวิท 41,15บาท</a></li>
+            <li><a href="#" class="btn">เรนฮิลล์,15บาท</a></li>
+            <li><a href="#" class="btn">ซอยสุขุมวิท 49,15บาท</a></li>
+            <li><a href="#" class="btn">BTS ทองหล่อ (ทางออก 1),15บาท</a></li>
+            <li><a href="#" class="btn">ซอยสุขุมวิท 57,15บาท</a></li>
+            <li><a href="#" class="btn">เมเจอร์เอกมัย,15บาท</a></li>
+            <li><a href="#" class="btn">วัดธาตุทอง,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามโรงเรียนนานาชาติเซนต์แอนดรูว์ส กรุงเทพ (มัธยม),20บาท</a></li>
+            <li><a href="#" class="btn">ไลฟ์ แอท สุขุมวิท 65,20บาท</a></li>
+            <li><a href="#" class="btn">BTS พระโขนง (ทางออก 3),20บาท</a></li>
+            <li><a href="#" class="btn">ตลาดพระโขนง,20บาท</a></li>
+            <li><a href="#" class="btn">หลังแยกอ่อนนุช,20บาท</a></li>
+            <li><a href="#" class="btn">เซ็นจูรี่อ่อนนุช,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามสำนักงานเขตพระโขนง,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยสุขุมวิท 89/1,20บาท</a></li>
+            <li><a href="#" class="btn">ตลาดบางจาก,20บาท</a></li>
+            <li><a href="#" class="btn">สำนักงานขนส่งพื้นที่ 3,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยปุณณวิถี,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามซอยสุขุมวิท 64,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยวชิรธรรมสาธิต,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยสุขุมวิท 101/2,20บาท</a></li>
+            <li><a href="#" class="btn">BTS อุดมสุข (ทางออก 5),20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม รพ.กล้วยน้ำไท 2,20บาท</a></li>
+            <li><a href="#" class="btn">ก่อนแยกบางนา,20บาท</a></li>
+            <li><a href="#" class="btn">ปากทางบางนา-ตราด,20บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนนานาชาติเบิร์คลีย์,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยบางนา-ตราด 15,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยบางนา-ตราด 17,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยบางนา-ตราด 19,20บาท</a></li>
+            <li><a href="#" class="btn">เซ็นทรัลบางนา,20บาท</a></li>
+            <li><a href="#" class="btn">บางนาคอมเพล็กซ์,20บาท</a></li>
+            <li><a href="#" class="btn">รพ.ไทยนครินทร์,20บาท</a></li>
+            <li><a href="#" class="btn">เอสบีดีไซน์สแควร์ บางนา,20บาท</a></li>
+            <li><a href="#" class="btn">ซอยบางนา-ตราด 35,20บาท</a></li>
+            <li><a href="#" class="btn">เดอะพาร์คแลนด์ บางนา,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามเนชั่น,20บาท</a></li>
+            <li><a href="#" class="btn">หมู่บ้านบางนาวิลล่า,20บาท</a></li>    
+            <li><a href="#" class="btn">ตรงข้ามบางนาทาวเวอร์,20บาท</a></li> 
+            <li><a href="#" class="btn">หมู่บ้านพาร์ควิววิลล่า,20บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม รพ.พริ้นซ์ สุวรรณภูมิ,20บาท</a></li>
+            <li><a href="#" class="btn">หมู่บ้านสันตินคร,25บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามบางแก้ว,25บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้ามหมู่บ้านมัณฑนา บางนา-วงแหวน,25บาท</a></li>
+            <li><a href="#" class="btn">โรงเรียนกรุงเทพพิทยา,25บาท</a></li>
+            <li><a href="#" class="btn">ตรงข้าม ม.รามคำแหง 2 (ประตู 1),25บาท</a></li>
+            <li><a href="#" class="btn">ตลาดนัมเบอร์วัน,25บาท<a></li>
+            <li><a href="#" class="btn">อู่ไทยสมายล์บัส รามคำแหง 2,25บาท<a></li>
+         </ul>
+        </div> 
+      
+  
+    </div>
+   </div>
+    </ul>
+    </div> 
+    
+        <div class="m">
+            <div id="map"></div>
+        </div>    
+        
+</div>
+</div>      
 </body>
+<script src="st.js"></script>
+
+<script src="scripts.js"></script>
+
+<script src="55go.js"></script>
+
+<script src="38go.js"> </script>
+
+<script src="185go.js"></script>
+
+<script src="136go.js"></script>
+
+<script src="136back.js"></script>
+
+<script src="185back.js"></script>
+
+<script src="53back.js"></script>
+
+<script src="55back.js"></script>
+
+<script src="38back.js"></script>
 </html>
+
+
+
